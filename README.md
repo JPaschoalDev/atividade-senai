@@ -14,7 +14,7 @@
 
 Este repositório centraliza todas as atividades práticas e exercícios desenvolvidos ao longo do curso **Técnico em Desenvolvimento de Sistemas** no **SENAI CTTI**.
 
-Cada disciplina possui sua própria pasta, organizada de forma clara para facilitar a navegação e acompanhamento da evolução ao longo do curso.
+Cada módulo possui sua própria pasta, organizada de forma clara para facilitar a navegação e acompanhamento da evolução ao longo do curso.
 
 ---
 
@@ -34,15 +34,7 @@ Cada disciplina possui sua própria pasta, organizada de forma clara para facili
 
 ```
 📦 atividades-senai/
-├── 📂 POO/                         # Programação Orientada a Objetos
-│   ├── atividade-01/
-│   ├── atividade-02/
-│   └── ...
-├── 📂 Desenvolvimento-Web/         # Desenvolvimento Web
-│   ├── atividade-01/
-│   ├── atividade-02/
-│   └── ...
-├── 📂 Banco-de-Dados/              # Banco de Dados
+├── 📂 PROGRAMACAO-DE-APLICATIVOS/  # Módulo: Programação de Aplicativos
 │   ├── atividade-01/
 │   ├── atividade-02/
 │   └── ...
@@ -51,16 +43,10 @@ Cada disciplina possui sua própria pasta, organizada de forma clara para facili
 
 ---
 
-## 📖 Disciplinas
+## 📖 Módulos
 
-### 🧱 Programação Orientada a Objetos (POO)
-Atividades focadas nos pilares da POO: encapsulamento, herança, polimorfismo e abstração. Desenvolvimento de sistemas utilizando os conceitos fundamentais da orientação a objetos.
-
-### 🌐 Desenvolvimento Web
-Projetos e exercícios voltados para o desenvolvimento de interfaces e aplicações web, abrangendo HTML, CSS, JavaScript e boas práticas de front-end.
-
-### 🗄️ Banco de Dados
-Atividades relacionadas à modelagem, criação e manipulação de bancos de dados relacionais, incluindo modelagem ER, SQL (DDL e DML) e consultas.
+### 📱 Programação de Aplicativos
+Atividades e projetos do módulo de Programação de Aplicativos, abrangendo o desenvolvimento de soluções de software com foco em lógica, estrutura e boas práticas de programação.
 
 ---
 
@@ -77,11 +63,9 @@ Atividades relacionadas à modelagem, criação e manipulação de bancos de dad
 
 ## 📊 Progresso
 
-| Disciplina                        | Status          |
-|----------------------------------|-----------------|
-| Programação Orientada a Objetos  | 🟡 Em Andamento |
-| Desenvolvimento Web              | 🟡 Em Andamento |
-| Banco de Dados                   | 🟡 Em Andamento |
+| Módulo                        | Status          |
+|-------------------------------|-----------------|
+| Programação de Aplicativos    | 🟡 Em Andamento |
 
 ---
 
@@ -95,9 +79,9 @@ Para manter o histórico organizado, os commits seguem o padrão:
 
 **Exemplos:**
 ```
-feat(POO): adiciona atividade de herança
-fix(Web): corrige layout do formulário
-docs(BD): adiciona diagrama ER da atividade 03
+feat(prog-app): adiciona atividade de interfaces gráficas
+fix(prog-app): corrige lógica do exercício 03
+docs(prog-app): adiciona descrição da atividade 02
 ```
 
 **Tipos utilizados:**
