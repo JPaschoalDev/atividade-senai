@@ -28,14 +28,14 @@ public class Usuario {
 
     // Método auxiliar
     //O método "hashSenha(...)" serve para "bagunçar" a senha e não salva-la em texto puro
-    private String hashSenha(String senhaOriginal) {
-        return "SECRET_" + senhaOriginal + "6sdfvg46sn56vs4g6";
+    private String hashSenha(String senhaDigitada) {
+        return "SECRET_" + senhaDigitada + "6sdfvg46sn56vs4g6";
     }
 
     // Método auxiliar
     // Serve para validar a senha no ato do login
     public boolean validarSenha(String senhaDigitada) {
-        return this.senha.equals("SECRET_" + senhaOriginal + "6sdfvg46sn56vs4g6");
+        return this.senha.equals("SECRET_" + senhaDigitada + "6sdfvg46sn56vs4g6");
     }
 
     // Metodo auxiliar

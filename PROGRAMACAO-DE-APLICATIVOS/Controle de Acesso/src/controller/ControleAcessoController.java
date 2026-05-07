@@ -94,7 +94,7 @@ public class ControleAcessoController {
 
     // Metodo privado para popular o sistema
     private void inicializarDadosTeste() {
-        listaUsuarios.add(new Usuario(1, "Chefão Admin", "admin@empresa.com", "admin123", Cargo.ADMINISTRADOR));
+        listaUsuarios.add(new Usuario(1, "Chefão Admin", "admin@empresa.com", "adm123", Cargo.ADMINISTRADOR));
         listaUsuarios.add(new Usuario(2, "Ana Vendas", "ana@empresa.com", "ana123", Cargo.FUNCIONARIO));
         listaUsuarios.add(new Usuario(3, "Lucas Visitante", "lucas@empresa.com", "lucas123", Cargo.VISITANTE));
     }

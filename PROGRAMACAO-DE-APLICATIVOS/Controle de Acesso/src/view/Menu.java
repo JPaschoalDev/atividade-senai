@@ -7,10 +7,11 @@ import model.Usuario;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+// Declaração de classe, atributos privados para o view funcionar
 public class Menu {
-    private ControleAcessoController controller;
-    private Scanner scanner;
-    private Usuario usuarioLogado;
+    private ControleAcessoController controller; // Conexão direta com o cérebro do sistema
+    private Scanner scanner; // Leitor de teclado
+    private Usuario usuarioLogado; // Guarda o usuário que passou pelo login com sucesso
 
     // Construtor: Recebe o "cérebro" (controller) criado no Main
     public Menu(ControleAcessoController controller) {
@@ -19,7 +20,7 @@ public class Menu {
         this.usuarioLogado = null; // Ninguém começa logado
     }
 
-    // Método principal que roda o loop do menu
+    // Método principal que roda o loop do menu principal
     public void exibirMenuPrincipal() {
         int opcao = -1;
 
@@ -45,13 +46,13 @@ public class Menu {
                 scanner.nextLine(); // Limpa o buffer do teclado
                 processarOpcao(opcao);
             } catch (InputMismatchException e) {
-                System.out.println("❌ ERRO: Por favor, digite apenas números válidos.");
+                System.out.println("\u001B[31m" + "ERRO: Por favor, digite apenas números válidos." + "\u001B[0m");
                 scanner.nextLine(); // Limpa o erro do teclado para não travar o loop
             }
         }
     }
 
-    // Direciona a ação escolhida para o método correto
+    // Direciona a opção escolhida para o método correto.
     private void processarOpcao(int opcao) {
         switch (opcao) {
             case 1: menuLogin(); break;
@@ -60,10 +61,10 @@ public class Menu {
             case 4: controller.exibirHistoricoCompleto(usuarioLogado); break;
             case 5:
                 usuarioLogado = null;
-                System.out.println("👋 Logout efetuado com sucesso.");
+                System.out.println("Logout efetuado com sucesso.");
                 break;
             case 0: System.out.println("Desligando o sistema... Até logo!"); break;
-            default: System.out.println("⚠️ Opção inválida! Tente novamente.");
+            default: System.out.println("\u001B[31m" + "Opção inválida! Tente novamente." + "\u001B[0m");
         }
     }
 
@@ -78,17 +79,17 @@ public class Menu {
             System.out.print("Digite a Senha: ");
             String senha = scanner.nextLine();
 
-            // Pede para o controller validar
+            // Pede para o controller validar "iD" e "senha"
             Usuario u = controller.fazerLogin(id, senha);
 
             if (u != null) {
                 usuarioLogado = u;
-                System.out.println("🔓 Login realizado com sucesso! Bem-vindo, " + u.getNome());
+                System.out.println("Login realizado com sucesso! Bem-vindo, " + u.getNome());
             } else {
-                System.out.println("❌ Falha na autenticação: ID ou Senha incorretos.");
+                System.out.println("\u001B[31m" + "Falha na autenticação: ID ou Senha incorretos." + "\u001B[0m");
             }
         } catch (InputMismatchException e) {
-            System.out.println("❌ ERRO: ID precisa ser um número.");
+            System.out.println("\u001B[31m" + "ERRO: ID precisa ser um número." + "\u001B[0m");
             scanner.nextLine();
         }
     }
@@ -96,7 +97,7 @@ public class Menu {
     // Submenu para simular a passagem em uma porta/roleta
     private void menuTentarAcesso() {
         if (usuarioLogado == null) {
-            System.out.println("❌ ERRO: Você precisa fazer login antes de tentar acessar uma área.");
+            System.out.println("\u001B[31m" + "ERRO: Você precisa fazer login antes de tentar acessar uma área." + "\u001B[0m");
             return;
         }
 
@@ -111,14 +112,14 @@ public class Menu {
         if (autorizado) {
             System.out.println("🟢 [ACESSO LIBERADO] Porta aberta para a área: " + area);
         } else {
-            System.out.println("🔴 [ACESSO NEGADO] Você não tem permissão para entrar na área: " + area);
+            System.out.println("\u001B[31m" + "[ACESSO NEGADO] Você não tem permissão para entrar na área: " + area + "\u001B[0m");
         }
     }
 
     // Submenu para o Admin cadastrar novas pessoas
     private void menuCadastrarUsuario() {
         if (usuarioLogado == null) {
-            System.out.println("❌ ERRO: Faça login como Administrador primeiro.");
+            System.out.println("\u001B[31m" + "ERRO: Faça login como Administrador primeiro." + "\u001B[0m");
             return;
         }
 
@@ -154,7 +155,8 @@ public class Menu {
             controller.cadastrarUsuario(usuarioLogado, novo);
 
         } catch (InputMismatchException e) {
-            System.out.println("❌ ERRO: Dados inválidos digitados. Cadastro cancelado.");
+            System.out.println("\u001B[31m" + "ERRO: Dados inválidos digitados. Cadastro cancelado." + "\u001B[0m");
+
             scanner.nextLine();
         }
     }
