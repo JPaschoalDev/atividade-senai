@@ -1,0 +1,186 @@
+# 🍕 Sistema Pizzaria — Projeto de Aprendizado em POO (Java)
+
+Projeto desenvolvido como protótipo educacional para praticar os fundamentos de **Programação Orientada a Objetos (POO)** em Java. O sistema simula o gerenciamento de uma pizzaria: clientes, cardápio, pedidos (balcão e delivery), promoções e relatórios financeiros.
+
+> **Nível:** Iniciante / Intermediário  
+> **Linguagem:** Java 17+  
+> **Interface:** Console (terminal)  
+> **IDE recomendada:** IntelliJ IDEA
+
+---
+
+## 📋 Funcionalidades
+
+- **Clientes** — cadastro, busca por nome, edição e remoção
+- **Cardápio** — adicionar pizzas, ativar/desativar itens
+- **Pedidos** — criar pedidos de balcão ou delivery, adicionar itens, acompanhar status
+- **Promoções** — desconto percentual e combo "leve 2, pague 1"
+- **Financeiro** — relatórios de faturamento diário, semanal e anual
+
+---
+
+## 🚀 Como executar no IntelliJ
+
+1. Extraia o arquivo `.zip` do projeto
+2. Abra o IntelliJ IDEA → **File → Open** → selecione a pasta `SistemaPizzaria`
+3. Clique em **Trust Project** se solicitado
+4. Vá em **File → Project Structure → SDK** e selecione o **JDK 17 ou superior**
+5. Navegue até `src/pizzaria/Main.java`
+6. Clique com o botão direito → **Run 'Main.main()'**
+
+O sistema abrirá no terminal integrado do IntelliJ com o menu principal.
+
+---
+
+## 🗂️ Estrutura do Projeto
+
+```
+SistemaPizzaria/
+└── src/
+    └── pizzaria/
+        ├── Main.java                         # Menu principal e fluxos de navegação
+        ├── modelo/                           # Classes que representam entidades do negócio
+        │   ├── Cliente.java
+        │   ├── Pizza.java
+        │   ├── Promocao.java
+        │   ├── ItemPedido.java
+        │   └── Pedido.java
+        ├── gerenciador/                      # Classes com as regras de negócio
+        │   ├── Cardapio.java
+        │   ├── GerenciadorClientes.java
+        │   ├── GerenciadorPedidos.java
+        │   ├── GerenciadorPromocoes.java
+        │   └── GerenciadorFinanceiro.java
+        └── util/
+            └── Console.java                  # Leitura e formatação do terminal
+```
+
+A separação em `modelo/` e `gerenciador/` substitui o padrão MVC sem abrir mão da organização:
+
+- **modelo/** → *o quê* o sistema conhece (dados e atributos)
+- **gerenciador/** → *o como* o sistema age (regras e operações)
+
+---
+
+## 🧠 Conceitos de POO aplicados
+
+Este projeto foi construído pensando no aprendizado progressivo. Cada conceito tem um lugar claro no código:
+
+### Encapsulamento
+Todos os atributos das classes são `private`. O acesso é feito exclusivamente por métodos `get` e `set`. Isso protege os dados de alterações acidentais.
+
+```java
+// Em Cliente.java
+private String nome;          // ninguém acessa diretamente
+public String getNome() { return nome; }  // acesso controlado
+```
+
+### Composição (relação "tem um")
+`Pedido` não herda de `Cliente` — ele *possui* um `Cliente`. Isso modela a realidade: um pedido pertence a um cliente.
+
+```java
+// Em Pedido.java
+private Cliente cliente;        // composição
+private List<ItemPedido> itens; // composição com coleção
+```
+
+### Sobrecarga de Construtores
+`ItemPedido` pode ser criado com ou sem observação. Dois construtores, mesmo nome, parâmetros diferentes.
+
+```java
+new ItemPedido(pizza, 2, "sem cebola"); // com observação
+new ItemPedido(pizza, 2);               // sem observação
+```
+
+### Enum
+Valores fixos e seguros para tipos e status, evitando strings soltas no código.
+
+```java
+public enum TipoPedido { DELIVERY, BALCAO }
+public enum StatusPedido { ABERTO, EM_PREPARO, PRONTO, ENTREGUE, CANCELADO }
+```
+
+### Sobrescrita de toString()
+Toda classe modelo sobrescreve `toString()` para exibição formatada automática no console.
+
+```java
+// Em Pizza.java
+@Override
+public String toString() {
+    return String.format("[#%d] %-25s | Tam: %s | R$ %.2f", id, nome, tamanho, preco);
+}
+```
+
+### Responsabilidade Única
+Cada classe faz uma coisa só. `GerenciadorFinanceiro` calcula relatórios mas não armazena pedidos — ele recebe a lista do `GerenciadorPedidos`.
+
+---
+
+## 🔄 Fluxo de um Pedido
+
+```
+Usuário escolhe cliente
+        ↓
+Define tipo: BALCAO ou DELIVERY
+        ↓
+Adiciona pizzas do cardápio (com quantidade e observação)
+        ↓
+Aplica promoção (opcional: % desconto ou combo 2x1)
+        ↓
+Sistema gera comprovante e muda status para EM_PREPARO
+        ↓
+Atendente atualiza status: PRONTO → ENTREGUE
+        ↓
+Pedido entregue entra no cálculo financeiro
+```
+
+---
+
+## 📊 Relatório Financeiro
+
+O relatório é gerado com base nos pedidos com status `ENTREGUE`. Pedidos cancelados ou em aberto não contam para o faturamento.
+
+```
+╔══════════════════════════════════════╗
+║       RELATÓRIO FINANCEIRO           ║
+╠══════════════════════════════════════╣
+║  Data de referência: 2024-11-10      ║
+╠══════════════════════════════════════╣
+║  Faturamento HOJE:    R$     320.00  ║
+║  Pedidos hoje:                   4   ║
+║  Ticket médio hoje:   R$      80.00  ║
+╠══════════════════════════════════════╣
+║  Faturamento SEMANAL: R$    1.540.00 ║
+╠══════════════════════════════════════╣
+║  Faturamento ANUAL:   R$   18.200.00 ║
+╚══════════════════════════════════════╝
+```
+
+---
+
+## 💡 Dados de Exemplo (pré-carregados)
+
+Ao iniciar, o sistema já vem com dados para facilitar os testes:
+
+**Clientes:** Maria Silva, João Pereira, Ana Costa  
+**Cardápio:** Calabresa, Frango c/ Catupiry, Portuguesa, Quatro Queijos, Margherita, Chocolate, Romeo e Julieta  
+**Promoções:** "Desconto de Boas-vindas" (10%) e "Combo 2 Pizzas" (leve 2, pague 1)
+
+---
+
+## 🛠️ Possíveis evoluções do projeto
+
+Sugestões para quem quiser ir além como exercício:
+
+- [ ] Persistência em arquivo `.txt` ou `.csv` usando `FileWriter`
+- [ ] Herança no cardápio: `PizzaSalgada` e `PizzaDoce` estendendo `Pizza`
+- [ ] Interface gráfica com `JOptionPane` ou `Swing`
+- [ ] Relatório por período personalizado (data início / data fim)
+- [ ] Múltiplas promoções acumuláveis por pedido
+- [ ] Histórico de alterações de status por pedido
+
+---
+
+## 📄 Licença
+
+Projeto educacional de uso livre. Sinta-se à vontade para modificar, estudar e distribuir.
