@@ -17,7 +17,7 @@
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <exec.mainClass>ui.Menu</exec.mainClass>
+        <exec.mainClass>main.ui.Menu</exec.mainClass>
     </properties>
 
     <dependencies>
@@ -30,9 +30,9 @@
     </dependencies>
 
     <build>
-        <sourceDirectory>src/main/java</sourceDirectory>
+        <sourceDirectory>src/main</sourceDirectory>
         <plugins>
-            <plugin>
+            <plugin>S
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>
                 <version>3.1.0</version>
