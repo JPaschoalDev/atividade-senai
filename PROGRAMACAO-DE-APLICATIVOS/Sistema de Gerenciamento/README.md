@@ -18,28 +18,26 @@ Sistema de gerenciamento para clínica veterinária desenvolvido em **Java** com
 ## 🏗️ Estrutura do Projeto
 
 ```
-clinica_veterinaria/
+Sistema de Gerenciamento/
 ├── pom.xml                          # Configuração Maven (dependências)
-├── .gitignore
 ├── README.md
 └── src/
     └── main/
-        └── java/
-            ├── models/              # Classes de domínio (OO)
-            │   ├── Pessoa.java      # Classe base abstrata
-            │   ├── Tutor.java       # Subclasse de Pessoa
-            │   ├── Veterinario.java # Subclasse de Pessoa
-            │   ├── Animal.java      # Entidade Animal
-            │   └── Consulta.java    # Entidade Consulta
-            ├── repositories/        # Camada de acesso a dados (SQL aqui)
-            │   ├── TutorRepository.java
-            │   ├── VeterinarioRepository.java
-            │   ├── AnimalRepository.java
-            │   └── ConsultaRepository.java
-            ├── database/            # Configuração e inicialização do banco
-            │   └── DatabaseConnection.java
-            └── ui/                  # Interface com o usuário
-                └── Menu.java        # Ponto de entrada (main)
+        ├── database/                # Configuração e inicialização do banco
+        │   └── DatabaseConnection.java
+        ├── models/                  # Classes de domínio (OO)
+        │   ├── Pessoa.java          # Classe base abstrata
+        │   ├── Tutor.java           # Subclasse de Pessoa
+        │   ├── Veterinario.java     # Subclasse de Pessoa
+        │   ├── Animal.java          # Entidade Animal
+        │   └── Consulta.java        # Entidade Consulta
+        ├── repositories/            # Camada de acesso a dados (SQL aqui)
+        │   ├── TutorRepository.java
+        │   ├── VeterinarioRepository.java
+        │   ├── AnimalRepository.java
+        │   └── ConsultaRepository.java
+        └── ui/                      # Interface com o usuário
+            └── Menu.java            # Ponto de entrada (main)
 ```
 
 ---
@@ -88,11 +86,11 @@ clinica_veterinaria/
 
 ### Pilares de OO aplicados
 
-| Pilar           | Onde é aplicado |
-|-----------------|-----------------|
-| **Herança**     | `Tutor` e `Veterinario` herdam de `Pessoa` |
-| **Polimorfismo**| Método `apresentar()` é sobrescrito em cada subclasse com saída diferente |
-| **Encapsulamento** | Todos os atributos são `private`, acessados via getters/setters com validação |
+| Pilar              | Onde é aplicado |
+|--------------------|-----------------|
+| **Herança**        | `Tutor` e `Veterinario` herdam de `Pessoa` |
+| **Polimorfismo**   | Método `apresentar()` sobrescrito em cada subclasse com saída diferente |
+| **Encapsulamento** | Todos os atributos são `private`, acessados via getters/setters |
 
 ### Separação de responsabilidades
 
@@ -106,12 +104,11 @@ clinica_veterinaria/
 ## ⚙️ Pré-requisitos
 
 - Java 21+
-- Maven 3.8+
+- Maven (ou usar o wrapper `mvnw` incluído no projeto)
 
 Verifique com:
 ```bash
 java -version
-mvn -version
 ```
 
 ---
@@ -121,25 +118,17 @@ mvn -version
 ### 1. Clone o repositório
 
 ```bash
-git clone https://github.com/seu-usuario/clinica-veterinaria.git
-cd clinica-veterinaria
+git clone https://github.com/JPaschoalDev/Atividade-Senai.git
+cd Atividade-Senai/PROGRAMACAO-DE-APLICATIVOS/Sistema\ de\ Gerenciamento
 ```
 
-### 2. Compile o projeto
+### 2. Execute pelo IntelliJ IDEA
 
-```bash
-mvn compile
-```
+Abra o projeto no IntelliJ IDEA, aguarde o Maven baixar as dependências automaticamente e clique em **Run** na classe `Menu.java`.
 
-### 3. Execute o sistema
+> ⚠️ O banco `clinica_veterinaria.db` é criado automaticamente na raiz do projeto na primeira execução. Não é necessário instalar nenhum banco de dados separado.
 
-```bash
-mvn exec:java
-```
-
-> O banco `clinica_veterinaria.db` é criado automaticamente na primeira execução. Não é necessário instalar nenhum banco de dados.
-
-### (Opcional) Gerar JAR executável
+### 3. (Opcional) Gerar JAR executável
 
 ```bash
 mvn package
@@ -196,17 +185,16 @@ CREATE TABLE consultas (
 
 - **SQL Injection**: todos os repositórios usam `PreparedStatement` com `?` — nenhuma entrada do usuário é concatenada diretamente no SQL.
 - **Conexões**: cada operação abre e fecha sua própria conexão com `try-with-resources`.
-- **Arquivos sensíveis**: o `.gitignore` exclui o arquivo `.db` do repositório.
+- **Arquivos sensíveis**: o `.gitignore` exclui o arquivo `.db` do repositório — o banco é gerado localmente a cada execução.
 
 ---
 
-## 👥 Divisão de Tarefas (sugestão para a dupla)
+## 🛠️ Dependências
 
-| Integrante A | Integrante B |
-|---|---|
-| `models/` (Pessoa, Tutor, Veterinario, Animal, Consulta) | `repositories/` (todos os 4 repositórios) |
-| `database/DatabaseConnection.java` | `ui/Menu.java` |
-| README inicial + diagrama de classes | README final + instruções de execução |
+| Dependência | Versão | Finalidade |
+|---|---|---|
+| `org.xerial:sqlite-jdbc` | 3.45.1.0 | Driver JDBC para SQLite |
+| `org.apache.maven.plugins:maven-assembly-plugin` | 3.6.0 | Geração de JAR executável |
 
 ---
 
